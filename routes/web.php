@@ -1,7 +1,7 @@
 <?php
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginRegisterController;
-use App\Http\Controllers\Auth\BookController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,7 +26,3 @@ Route::controller(LoginRegisterController::class)->group(function() {
     Route::post('/logout', 'logout')->name('logout');
 });
 
-Route::get('add-book-form', [BookController::class, 'index']);
-Route::post('store-form', [BookController::class, 'store']);
-Route::post('update-form', [BookController::class,'update']);
-Route::post('delete-form', [BookController::class,'destroy']);

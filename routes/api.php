@@ -2,8 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\LoginRegisterController;
-use App\Http\Controllers\API\BookController;
+use App\Http\Controllers\Auth\BookController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,3 +23,4 @@ use App\Http\Controllers\API\BookController;
 Route::middleware('auth:sanctum')->group(function () {
     Route::resource('book', BookController::class);
 });
+Route::apiResource('category', BookController::class);
