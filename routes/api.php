@@ -23,4 +23,5 @@ use App\Http\Controllers\Auth\BookController;
 Route::middleware('auth:sanctum')->group(function () {
     Route::resource('book', BookController::class);
 });
+
 Route::apiResource('category', BookController::class);

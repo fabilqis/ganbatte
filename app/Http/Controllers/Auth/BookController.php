@@ -16,11 +16,12 @@ class BookController extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(): JsonResponse
+    public function index()
     {
         $book = Book::all();
     
-        return $this->sendResponse(BookResource::collection($book), 'Book retrieved successfully.');
+        // return $this->sendResponse(BookResource::collection($book), 'Book retrieved successfully.');
+        return($book);
     }
     /**
      * Store a newly created resource in storage.
@@ -30,7 +31,7 @@ class BookController extends BaseController
      */
  
    
-    public function store(Request $request): JsonResponse
+    public function store(Request $request)
     {
         $input = $request->all();
    
@@ -43,9 +44,15 @@ class BookController extends BaseController
             return $this->sendError('Validation Error.', $validator->errors());       
         }
    
-        $book = Book::create($input);
+        // $book = Book::create($input);
    
-        return $this->sendResponse(new BookResource($book), 'Book created successfully.');
+        // return $this->sendResponse(new BookResource($book), 'Book created successfully.');
+
+        $book = new Book;
+        $book->book_title = $request->book_title;
+        $book->detail = $request->detail;
+        $book->save();
+        return redirect('/dashboard')->with('status', 'Book Post Has Been inserted');
     } 
    
     /**

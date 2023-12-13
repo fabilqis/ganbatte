@@ -31,7 +31,7 @@
                             Add Book
                           </div>
                           <div class="card-body">
-                            <form name="add-book-form" id="add-book-form" method="post" action="{{url('store-form')}}">
+                            <form name="add-book-form" id="add-book-form" method="post" action="{{url('store_form')}}">
                              @csrf
                               <div class="form-group">
                                 <label for="bookTitle">Book Title</label>
