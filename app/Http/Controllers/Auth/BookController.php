@@ -6,8 +6,10 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Auth\BaseController as BaseController;
 use App\Models\Book;
 use Validator;
-use App\Http\Resources\BookResource;
-use Illuminate\Http\JsonResponse;
+use ErrorException;
+use Illuminate\Database\QueryException;
+use Symfony\Component\HttpFoundation\Response;
+use League\CommonMark\Node\Query;
    
 class BookController extends BaseController
 {
@@ -18,10 +20,15 @@ class BookController extends BaseController
      */
     public function index()
     {
-        $book = Book::all();
-    
-        // return $this->sendResponse(BookResource::collection($book), 'Book retrieved successfully.');
-        return($book);
+        try {
+            $book = Book::all();
+            return response()->json($book, Response::HTTP_OK);
+        } catch (QueryException $e) {
+            $error = [
+                'error' => $e->getMessage()
+            ];
+            return response()->json($error, Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
     /**
      * Store a newly created resource in storage.
@@ -61,15 +68,19 @@ class BookController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id): JsonResponse
+    public function show($id)
     {
-        $book = Book::find($id);
-  
-        if (is_null($book)) {
-            return $this->sendError('Book not found.');
+        try {
+            $book = Book::findOrFail($id);
+            $response = [
+                $book
+            ];
+            return response()->json($response, Response::HTTP_OK);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'No result'
+            ], Response::HTTP_FORBIDDEN);
         }
-   
-        return $this->sendResponse(new BookResource($book), 'Book retrieved successfully.');
     }
     
     /**
@@ -79,14 +90,11 @@ class BookController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id): JsonResponse
+    public function update(Request $request, $id)
     {
-   
         $book = Book::find($id);
         $book->update($request->all());
-
-        return $this->sendResponse(new BookResource($book), 'Book update successfully.');
-
+        return redirect('/dashboard')->with('status', 'Book Post Has Been updated');
     }
    
     /**
@@ -95,10 +103,15 @@ class BookController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Book $book): JsonResponse
+    public function destroy($id)
     {
-        $book->delete();
-   
-        return $this->sendResponse([], 'Book deleted successfully.');
+        try {
+        Book::findOrFail($id)->delete();
+        return response()->json(['success' => 'Book deleted successfully.']);
+    } catch (\Exception $e) {
+        return response()->json([
+            'error' => 'No result'
+        ], Response::HTTP_FORBIDDEN);
+    }
     }
 }
