@@ -9,3 +9,14 @@ Make sure that you have setup the environment properly. You will need minimum PH
 6. Run migrations `php artisan migrate`
 7. Start local server by executing `php artisan serve`
 8. Visit here [http://127.0.0.1:8000/register](http://127.0.0.1:8000/register) to test the application
+
+|Method	  |    Endpoint    |                  |
+|---------|----------------|--------------------|
+|POST	   | /api/register |  --> test register |
+|POST	    |/api/login    |  --> test login |
+|POST	    |/api/book      | --> register book |
+|GET	    |    /api/book   |    --> get book |
+|GET         |/api/book/{id}  |--> get book based of id  |
+|PUT         |/api/book/{id}  |--> edit book based of id |
+|DELETE      |/api/book/{id}  |--> delete book based of id |
+|POST	    |/api/logout|
