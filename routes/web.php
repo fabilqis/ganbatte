@@ -19,15 +19,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
 Route::controller(LoginRegisterController::class)->group(function() {
     Route::get('/register', 'register')->name('register');
     Route::post('/register', 'register')->name('register');
-    Route::post('/store', 'store')->name('store');
     Route::get('/login', 'login')->name('login');
     Route::post('/login', 'login')->name('login');
+    Route::post('/store', 'store')->name('store');
     Route::post('/authenticate', 'authenticate')->name('authenticate');
-    Route::post('/books', 'books')->name('books');
     Route::post('/logout', 'logout')->name('logout');
+    Route::post('/books', 'books')->name('books');
 });
 
-Route::resource('books', BookController::class);
+Route::resource('books', BookController::class)->middleware('auth');
+

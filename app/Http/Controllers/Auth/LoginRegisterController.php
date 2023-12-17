@@ -83,7 +83,7 @@ class LoginRegisterController extends Controller
         if(Auth::attempt($credentials))
         {
             $request->session()->regenerate();
-            return redirect()->route('books')
+            return redirect()->route('books.index')
                 ->withSuccess('You have successfully logged in!');
         }
 
@@ -102,7 +102,7 @@ class LoginRegisterController extends Controller
     {
         if(Auth::check())
         {
-            return view('books');
+            return view('books.index');
         }
         
         return redirect()->route('login')
