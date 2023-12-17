@@ -2,6 +2,8 @@
 
 @section('content')
 
+<meta name="csrf-token" content="{{ csrf_token() }}">
+
 <div class="row justify-content-center mt-3">
     <div class="col-md-8">
 
@@ -18,16 +20,6 @@
                 <form action="{{ route('books.store') }}" method="post">
                     @csrf
 
-                    {{-- <div class="mb-3 row">
-                        <label for="id" class="col-md-4 col-form-label text-md-end text-start">ID</label>
-                        <div class="col-md-6">
-                          <input type="text" class="form-control @error('id') is-invalid @enderror" id="id" name="id" value="{{ old('id') }}">
-                            @if ($errors->has('id'))
-                                <span class="text-danger">{{ $errors->first('id') }}</span>
-                            @endif
-                        </div>
-                    </div> --}}
-
                     <div class="mb-3 row">
                         <label for="book_title" class="col-md-4 col-form-label text-md-end text-start">Book Title</label>
                         <div class="col-md-6">
@@ -41,7 +33,7 @@
                     <div class="mb-3 row">
                         <label for="detail" class="col-md-4 col-form-label text-md-end text-start">Detail</label>
                         <div class="col-md-6">
-                          <input type="text" class="form-control @error('detail') is-invalid @enderror" id="detail" name="detail" value="{{ old('detail') }}">
+                          <textarea class="form-control @error('detail') is-invalid @enderror" id="detail" name="detail">{{ old('detail') }}</textarea>
                             @if ($errors->has('detail'))
                                 <span class="text-danger">{{ $errors->first('detail') }}</span>
                             @endif

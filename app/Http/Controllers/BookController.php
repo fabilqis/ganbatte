@@ -18,7 +18,7 @@ class BookController extends Controller
     public function index() : View
     {
         return view('books.index', [
-            'books' => Book::orderBy('id', 'asc')->paginate(10)
+            'books' => Book::orderBy('id', 'asc')->paginate(5)
         ]);
     }
     
@@ -71,8 +71,7 @@ class BookController extends Controller
     public function update(UpdateBookRequest $request, Book $book) : RedirectResponse
     {
         $book->update($request->all());
-        return redirect()->back()
-            ->withSuccess('Book is update successfully');
+        return redirect()->back()->withSuccess('Book is update successfully');
     }
    
     /**

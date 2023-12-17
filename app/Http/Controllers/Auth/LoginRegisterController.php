@@ -16,7 +16,7 @@ class LoginRegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except([
-            'logout', 'index'
+            'logout', 'books'
         ]);
     }
 
@@ -41,7 +41,7 @@ class LoginRegisterController extends Controller
         $request->validate([
             'name' => 'required|string|max:250',
             'email' => 'required|email|max:250|unique:users',
-            'password' => 'required|min:8|confirmed'
+            'password' => 'required|min:6'
         ]);
 
         User::create([
@@ -53,7 +53,7 @@ class LoginRegisterController extends Controller
         $credentials = $request->only('email', 'password');
         Auth::attempt($credentials);
         $request->session()->regenerate();
-        return redirect()->route('books')
+        return redirect()->route('login')
         ->withSuccess('You have successfully registered & logged in!');
     }
 
@@ -102,7 +102,7 @@ class LoginRegisterController extends Controller
     {
         if(Auth::check())
         {
-            return view('books.index');
+            return view('books');
         }
         
         return redirect()->route('login')

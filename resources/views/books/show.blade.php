@@ -2,6 +2,8 @@
 
 @section('content')
 
+<meta name="csrf-token" content="{{ csrf_token() }}">
+
 <div class="row justify-content-center mt-3">
     <div class="col-md-8">
 
