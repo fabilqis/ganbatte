@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Controllers\Auth\BookController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginRegisterController;
+use App\Http\Controllers\BookController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,12 +26,7 @@ Route::controller(LoginRegisterController::class)->group(function() {
     Route::get('/login', 'login')->name('login');
     Route::post('/login', 'login')->name('login');
     Route::post('/authenticate', 'authenticate')->name('authenticate');
-    Route::get('/dashboard', 'dashboard')->name('dashboard');
     Route::post('/logout', 'logout')->name('logout');
 });
 
-Route::controller(BookController::class)->group(function() {
-    Route::get('add-book-form', [BookController::class, 'index']);
-    Route::post('store_form', [BookController::class, 'store']);
-});
-
+Route::resource('books', BookController::class);

@@ -48,8 +48,6 @@
 
     <div class="container">
         @yield('content')
-        <div class="row justify-content-center text-center mt-3">
-            </div>
         </div>
     </div>
        

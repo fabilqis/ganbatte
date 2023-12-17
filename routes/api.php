@@ -2,7 +2,6 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\BookController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,12 +15,8 @@ use App\Http\Controllers\Auth\BookController;
 */
 
 
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
-
-Route::middleware('auth:sanctum')->group(function () {
-    Route::resource('book', BookController::class);
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
 });
 
-Route::apiResource('category', BookController::class);
+

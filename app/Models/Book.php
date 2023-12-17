@@ -9,12 +9,9 @@ class Book extends Model
 {
     use HasFactory;
   
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
-        'book_title', 'detail'
+        'id', 
+        'book_title', 
+        'detail'
     ];
 }

@@ -16,7 +16,7 @@ class LoginRegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except([
-            'logout', 'dashboard'
+            'logout', 'index'
         ]);
     }
 
@@ -53,7 +53,7 @@ class LoginRegisterController extends Controller
         $credentials = $request->only('email', 'password');
         Auth::attempt($credentials);
         $request->session()->regenerate();
-        return redirect()->route('dashboard')
+        return redirect()->route('books')
         ->withSuccess('You have successfully registered & logged in!');
     }
 
@@ -83,7 +83,7 @@ class LoginRegisterController extends Controller
         if(Auth::attempt($credentials))
         {
             $request->session()->regenerate();
-            return redirect()->route('dashboard')
+            return redirect()->route('books')
                 ->withSuccess('You have successfully logged in!');
         }
 
@@ -94,15 +94,15 @@ class LoginRegisterController extends Controller
     } 
     
     /**
-     * Display a dashboard to authenticated users.
+     * Display a index to authenticated users.
      *
      * @return \Illuminate\Http\Response
      */
-    public function dashboard()
+    public function index()
     {
         if(Auth::check())
         {
-            return view('auth.dashboard');
+            return view('books.index');
         }
         
         return redirect()->route('login')
